@@ -1,0 +1,57 @@
+group 'com.test'
+version '0.0.1-SNAPSHOT'
+
+buildscript {
+	ext {
+		springBootVersion = '1.3.1.RELEASE'
+	}
+	repositories {
+    	mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+bootRun {
+   	addResources = true
+
+    //This is needed to pass command line system properties to Spring
+   	systemProperties = System.properties
+}
+
+springBoot {
+    mainClass = "com.test.TestApplication"
+}
+
+jar {
+	baseName = 'test_client'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+   mavenCentral()
+}
+
+dependencies {
+
+    compile('org.apache.commons:commons-lang3:3.4')
+    compile('org.slf4j:slf4j-api:1.7.16')
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-cache');
+    
+    // Used for Hazelcast
+    compile("javax.cache:cache-api:1.0.0")
+    compile("com.hazelcast:hazelcast:3.7.3")
+    compile("com.hazelcast:hazelcast-client:3.7.3")
+    compile("com.hazelcast:hazelcast-spring:3.7.3")
+
+}
